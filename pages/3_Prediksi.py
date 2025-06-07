@@ -4,8 +4,8 @@ import joblib
 
 st.title("🔮 Prediksi Rating Restoran")
 
-# Load model yang sudah dilatih di Colab
-model = joblib.load("models/model.pkl")
+# Load model dan nama fitur
+model, feature_names = joblib.load("models/model.pkl")
 
 st.write("Masukkan nilai-nilai fitur berikut untuk prediksi:")
 
@@ -20,13 +20,9 @@ def get_input():
 
 input_df = get_input()
 
-st.subheader("Data yang Anda masukkan:")
-st.write(input_df)
+# Pastikan urutan dan nama kolom cocok
+input_df = input_df[feature_names]
 
 if st.button("Prediksi"):
-    if input_df.isnull().values.any():
-        st.warning("Mohon lengkapi semua input sebelum memprediksi.")
-    else:
-        prediction = model.predict(input_df)[0]
-        st.success(f"Prediksi rating: {prediction:.2f}")
-        st.caption("Rating diprediksi dalam skala 1.0 (buruk) hingga 5.0 (sangat baik)")
+    prediction = model.predict(input_df)[0]
+    st.success(f"Prediksi rating: {prediction:.2f}")
