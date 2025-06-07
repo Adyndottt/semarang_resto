@@ -4,7 +4,7 @@ import joblib
 
 st.title("🔮 Prediksi Rating Restoran")
 
-# Load model dan nama fitur
+# Load model dan nama kolom fitur saat training
 model, feature_names = joblib.load("models/model.pkl")
 
 st.write("Masukkan nilai-nilai fitur berikut untuk prediksi:")
@@ -20,7 +20,7 @@ def get_input():
 
 input_df = get_input()
 
-# Pastikan urutan dan nama kolom cocok
+# Urutkan dan pastikan kolom cocok
 input_df = input_df[feature_names]
 
 if st.button("Prediksi"):
